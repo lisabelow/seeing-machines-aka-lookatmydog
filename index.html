@@ -97,7 +97,8 @@
   </header>
 
   <div class="teaser">
-    <img src="assets/teaser.png" alt="Gradio search interface showing results for 'a dog lying on the beach'">
+    <img src="assets/teaser.png" alt="Teaser of Alma pics">
+    <img src="assets/query01.png" alt="Gradio search interface showing results for 'a dog lying on the beach'">
   </div>
 
   <section id="abstract">
@@ -105,10 +106,10 @@
     <div class="abstract">
       <p>This project builds a semantic image search engine over a personal photo archive of my dog, Alma,
       using SigLIP (Sigmoid Loss for Language–Image Pre-training), a contrastive dual-encoder
-      vision–language model. Every photo is embedded once into a shared image–text vector space; a
+      vision-language model. Every photo is embedded once into a shared image–text vector space. Then, a
       natural-language query is embedded into that same space, and cosine similarity alone determines
-      which photos come back — there is no captioning, no generation, no manual tagging anywhere in the
-      pipeline. Across ten deliberately varied test queries, the system reliably retrieves literal,
+      which photos come back. There is no captioning, no generation, no manual tagging anywhere in the
+      pipeline. Across 10 varied test queries, the system reliably retrieves literal,
       concrete scenes but degrades sharply for abstract, personal, or purely aesthetic language, and its
       confidence scores turn out to be far more informative when read <em>relative to each other</em> than
       as any kind of absolute probability. The most interesting finding isn't that the system works — it's
