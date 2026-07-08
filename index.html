@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeing Machines — [Dein Titel]</title>
+<style>
+  :root {
+    --max-width: 860px;
+    --text: #1a1a1a;
+    --muted: #6b6b6b;
+    --accent: #2b5fd9;
+    --bg: #ffffff;
+    --card-bg: #f6f7f9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0 20px 80px;
+  }
+  main { max-width: var(--max-width); margin: 0 auto; }
+  header { text-align: center; padding: 60px 0 30px; }
+  h1 { font-size: 2.2rem; margin-bottom: 6px; }
+  .tagline { font-size: 1.15rem; color: var(--muted); margin-bottom: 18px; }
+  .meta { font-size: 0.95rem; color: var(--muted); }
+  .meta span { margin: 0 8px; }
+  .badge {
+    display: inline-block; background: var(--card-bg); border-radius: 999px;
+    padding: 3px 12px; font-size: 0.8rem; margin-top: 10px; color: var(--accent);
+    font-weight: 600;
+  }
+  .teaser {
+    width: 100%; border-radius: 12px; margin: 30px 0;
+    background: var(--card-bg); aspect-ratio: 16/9; display: flex;
+    align-items: center; justify-content: center; color: var(--muted);
+    font-size: 0.9rem; overflow: hidden;
+  }
+  .teaser img { width: 100%; height: 100%; object-fit: cover; }
+  section { margin: 48px 0; }
+  h2 {
+    font-size: 1.3rem; border-bottom: 2px solid var(--card-bg);
+    padding-bottom: 8px; margin-bottom: 16px;
+  }
+  .abstract {
+    background: var(--card-bg); border-radius: 12px; padding: 24px 28px;
+    font-size: 1.02rem;
+  }
+  .gallery {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px; margin-top: 16px;
+  }
+  figure { margin: 0; background: var(--card-bg); border-radius: 10px; overflow: hidden; }
+  figure img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; }
+  figcaption { padding: 10px 12px; font-size: 0.85rem; color: var(--muted); }
+  .fail figcaption { color: #b3401f; }
+  code, pre {
+    background: var(--card-bg); border-radius: 6px; font-size: 0.88rem;
+  }
+  pre { padding: 14px 16px; overflow-x: auto; }
+  code { padding: 2px 6px; }
+  .pipeline-diagram {
+    width: 100%; border-radius: 10px; background: var(--card-bg);
+    padding: 20px; text-align: center; color: var(--muted);
+  }
+  ul { padding-left: 20px; }
+  footer {
+    text-align: center; color: var(--muted); font-size: 0.85rem;
+    margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--card-bg);
+  }
+  .todo {
+    background: #fff3cd; border-left: 4px solid #e0a800; padding: 10px 14px;
+    font-size: 0.85rem; color: #6b5200; border-radius: 4px; margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>[Titel deines Projekts]</h1>
+    <p class="tagline">[Eine Zeile: was macht dein System, in Alltagssprache]</p>
+    <p class="meta">
+      <span>[Dein Name]</span>&middot;
+      <span>CompSci for Designers 2</span>&middot;
+      <span>MA Design for Digital Futures, TH Nürnberg</span>&middot;
+      <span>Sommersemester 2026</span>
+    </p>
+    <div class="badge">Level 1 — The Finder</div>
+  </header>
+
+  <div class="teaser">
+    <div class="todo">[Teaser-Visual hier einfügen: z.B. Screenshot des Gradio-Interfaces
+      mit einer starken Beispiel-Query, oder eine Bild-Collage aus deinem Korpus]</div>
+  </div>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <div class="abstract">
+      <p>[3–5 Sätze: was hast du gebaut, mit welchem Modell, über welchem Korpus,
+      und was ist die interessanteste Erkenntnis aus deiner Analyse?]</p>
+    </div>
+  </section>
+
+  <section id="motivation">
+    <h2>Motivation &amp; Corpus Statement</h2>
+    <p>[Warum dieses Archiv? Was ist die Sammlung — deine eigene Fotografie,
+    ein Build-Log, ein Zine-Archiv, Screenshots etc.? Wie hast du kuratiert
+    (Auswahlkriterien, was du weggelassen hast und warum)? Nutzungsrechte /
+    Einwilligung falls Personen erkennbar sind.]</p>
+    <ul>
+      <li><strong>Größe:</strong> [z.B. 120 Bilder]</li>
+      <li><strong>Quelle:</strong> [z.B. eigene Fotografie, 2023–2026]</li>
+      <li><strong>Kuratierung:</strong> [Kriterien für Auswahl/Ausschluss]</li>
+    </ul>
+  </section>
+
+  <section id="approach">
+    <h2>Approach</h2>
+    <p>[Kurzer Fließtext: SigLIP als contrastive, dual-encoder Modell; Bilder
+    werden einmalig embedded und auf Drive gecached; Text-Query wird in denselben
+    Vektorraum embedded; Cosine Similarity liefert Top-k; Gradio-Interface für
+    die Suche. Erwähne top_k und Threshold als Stellschrauben.]</p>
+    <div class="pipeline-diagram">
+      [Pipeline-Diagramm hier einfügen: Korpus → SigLIP Image Encoder → Embeddings
+      (gecached) &nbsp;|&nbsp; Query → SigLIP Text Encoder → Embedding → Cosine
+      Similarity → Top-k → Gradio-Anzeige]
+    </div>
+  </section>
+
+  <section id="results">
+    <h2>Results — Retrieval Atlas</h2>
+    <p>Mindestens 10 dokumentierte Queries aus dem Notebook, Erfolge und
+    Misserfolge, mit Begründung im Vokabular des Embedding-Raums.</p>
+    <div class="gallery">
+      <figure>
+        <img src="assets/PLACEHOLDER.jpg" alt="Query-Ergebnis">
+        <figcaption><strong>Query:</strong> "[Query-Text]"<br>[Kurze Begründung: warum kamen diese Bilder zurück?]</figcaption>
+      </figure>
+      <figure class="fail">
+        <img src="assets/PLACEHOLDER.jpg" alt="Fehlgeschlagene Query">
+        <figcaption><strong>Query (Fehlschlag):</strong> "[Query-Text]"<br>[Warum ist es fehlgeschlagen — Kompositions-/Binding-Problem, Vokabellücke, Korpuslücke, Schwellenwert?]</figcaption>
+      </figure>
+      <div class="todo">[Weitere 8+ Karten nach diesem Muster ergänzen — direkt aus
+        Notebook-Abschnitt 5 (Retrieval Atlas) übernehmen]</div>
+    </div>
+  </section>
+
+  <section id="reflection">
+    <h2>Project Reflection</h2>
+    <p>[Was hat überrascht, was war schwieriger als erwartet, was hast du über
+    Embedding-Räume gelernt, das nicht offensichtlich war, bevor du es an
+    deinem eigenen Archiv gesehen hast?]</p>
+  </section>
+
+  <section id="limitations">
+    <h2>Limitations</h2>
+    <ul>
+      <li>[z.B. schwach bei Kompositions-/Relations-Queries — bag-of-concepts-Problem]</li>
+      <li>[z.B. Korpusgröße begrenzt Generalisierung / seltene Konzepte]</li>
+      <li>[z.B. keine Textgenerierung, kein Erklären der eigenen Entscheidungen]</li>
+    </ul>
+  </section>
+
+  <section id="references">
+    <h2>Sources &amp; References</h2>
+    <ul>
+      <li>Zhai, X. et al. "Sigmoid Loss for Language Image Pre-Training" (SigLIP), 2023.</li>
+      <li>Radford, A. et al. "Learning Transferable Visual Models From Natural Language Supervision" (CLIP), 2021.</li>
+      <li>Kurslektüre / VLM-Lab-Notebook, CompSci for Designers 2.</li>
+      <li>[Weitere Quellen ergänzen]</li>
+    </ul>
+  </section>
+
+  <footer>
+    Seeing Machines — Final Project, CompSci for Designers 2, TH Nürnberg
+  </footer>
+
+</main>
+</body>
+</html>
