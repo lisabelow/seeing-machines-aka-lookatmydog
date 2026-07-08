@@ -97,11 +97,7 @@
   </header>
 
   <div class="teaser">
-  <img src="assets/teaser.png" alt="Alma pics Teaser Collage'"></div>
-    <div class="note" style="margin:20px;">Replace this with a screenshot of the Gradio interface — e.g. the
-      "a dog lying on the beach" query, which gets the strongest, cleanest results of the whole atlas.
-      Upload it to <code>assets/teaser.jpg</code> and swap the placeholder below in the HTML for
-      <code>&lt;img src="assets/teaser.jpg"&gt;</code>.</div>
+    <img src="assets/teaser.png" alt="Gradio search interface showing results for 'a dog lying on the beach'">
   </div>
 
   <section id="abstract">
@@ -176,7 +172,7 @@
     <div class="gallery">
 
       <figure class="ok">
-        <img src="assets/query01.jpg" alt="Query: a dog lying on the beach">
+        <img src="assets/query01.png" alt="Query: a dog lying on the beach">
         <figcaption><strong class="tag">Success —</strong> <strong>"a dog lying on the beach"</strong><br>
         Top-4 scores (0.131–0.107) sit well above the rest, with a visible drop after rank 5 (0.075 and
         below). Every top hit is an unambiguous beach photo — the highest, cleanest confidence band of the
@@ -184,7 +180,7 @@
       </figure>
 
       <figure class="ok">
-        <img src="assets/query02.jpg" alt="Query: a dog resting on the sand near the ocean">
+        <img src="assets/query02.png" alt="Query: a dog resting on the sand near the ocean">
         <figcaption><strong class="tag">Success —</strong> <strong>"a dog resting on the sand near the ocean"</strong> (paraphrase of #1)<br>
         Score curve is nearly identical (0.129–0.087 vs. 0.131–0.107) with the same top-4 images, just
         slightly reordered. The embedding space holds a stable "beach" region independent of exact
@@ -192,7 +188,7 @@
       </figure>
 
       <figure class="fail">
-        <img src="assets/query03.jpg" alt="Query: a calm, peaceful moment">
+        <img src="assets/query03.png" alt="Query: a calm, peaceful moment">
         <figcaption><strong class="tag">Failure —</strong> <strong>"a calm, peaceful moment"</strong><br>
         Much lower ceiling (max. 0.060) and a flat, slow decay. Results are a grab-bag — grass, beach, bed,
         forest, couch — with no coherent visual class behind them. Mood language doesn't produce a sharp
@@ -200,7 +196,7 @@
       </figure>
 
       <figure class="fail">
-        <img src="assets/query04.jpg" alt="Query: a dog on an orange leash">
+        <img src="assets/query04.png" alt="Query: a dog on an orange leash">
         <figcaption><strong class="tag">Partial failure —</strong> <strong>"a dog on an orange leash"</strong><br>
         Top results often contain <em>something</em> orange, but not consistently a leash — an orange
         mural, an orange toy headband, an orange chew toy all rank highly. The colour binds to whatever
@@ -208,7 +204,7 @@
       </figure>
 
       <figure class="fail">
-        <img src="assets/query05.jpg" alt="Query: a wolf in the snow">
+        <img src="assets/query05.png" alt="Query: a wolf in the snow">
         <figcaption><strong class="tag">Near-miss —</strong> <strong>"a wolf in the snow"</strong><br>
         The top 3 hits are genuinely the snow photos, but the highest score is only 0.078 (vs. 0.131 for
         the beach match). The ranking is right, but confidence drops sharply once the noun doesn't quite
@@ -216,7 +212,7 @@
       </figure>
 
       <figure class="ok">
-        <img src="assets/query06.jpg" alt="Query: fireworks at night">
+        <img src="assets/query06.png" alt="Query: fireworks at night">
         <figcaption><strong class="tag">Success —</strong> <strong>"fireworks at night"</strong> (absent-concept probe)<br>
         All 12 scores are negative (−0.003 to −0.041) — the only query with uniformly negative values. The
         model doesn't invent fireworks photos; it signals consistently low similarity across the whole
@@ -224,7 +220,7 @@
       </figure>
 
       <figure class="fail">
-        <img src="assets/query07.jpg" alt="Query: a dog on the left and a tree on the right">
+        <img src="assets/query07.png" alt="Query: a dog on the left and a tree on the right">
         <figcaption><strong class="tag">Failure —</strong> <strong>"a dog on the left / tree on the right"</strong> vs. reversed<br>
         Score maxima differ (0.092 vs. 0.077) and the top images shift slightly, but both draw from the
         same underlying pool. The difference is better explained by phrasing noise than genuine spatial
@@ -232,21 +228,21 @@
       </figure>
 
       <figure class="ok">
-        <img src="assets/query08.jpg" alt="Query: a dog outdoors">
+        <img src="assets/query08.png" alt="Query: a dog outdoors">
         <figcaption><strong class="tag">As expected —</strong> <strong>"a dog outdoors"</strong> (top_k breadth test)<br>
         Extremely flat curve: rank 1 (0.096) to rank 12 (0.089) differ by only 0.007. A broad query hits a
         large, largely interchangeable pool of images.</figcaption>
       </figure>
 
       <figure class="fail">
-        <img src="assets/query09.jpg" alt="Query: something pretty">
+        <img src="assets/query09.png" alt="Query: something pretty">
         <figcaption><strong class="tag">Failure —</strong> <strong>"something pretty"</strong><br>
         Flat and low (max. 0.042), another content grab-bag with no common thread. Aesthetic value
         judgments without a concrete visual noun have no real target in this space.</figcaption>
       </figure>
 
       <figure class="fail">
-        <img src="assets/query10.jpg" alt="Query: Alma">
+        <img src="assets/query10.png" alt="Query: Alma">
         <figcaption><strong class="tag">Expected failure —</strong> <strong>"Alma"</strong> (out-of-vocabulary probe)<br>
         Lowest ceiling of any positive-scoring query (max. 0.030, barely above the fireworks noise floor).
         Results look essentially random. My dog's name carries no learned visual meaning for SigLIP — the
