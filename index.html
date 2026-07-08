@@ -120,21 +120,12 @@
 
   <section id="motivation">
     <h2>Motivation &amp; Corpus Statement</h2>
-    <p>Alma is my dog, and over the last three years I've built up an enormous, disorganised photo archive
-    of her: beach trips, snow days, city walks, and a lot of couch photography. I chose this archive
-    precisely because I know it intimately — I can immediately tell when the system has genuinely found
-    what I asked for versus when it's confidently wrong, which is exactly the question this course keeps
-    coming back to.</p>
-    <p>The starting archive contained 374 JPEG exports spanning 2023 to early 2026. Level 1 asks for
-    50–150 images, so curation was a real design decision, not a formality. I first manually thinned the
-    set to 178 photos by eye. From there, I reviewed contact sheets of all remaining images systematically
-    and removed a further 53: exact export duplicates (the same photo saved twice as a "filename 2"
-    variant), near-identical burst shots taken seconds apart, and heavily over-represented compositions —
-    in particular a cluster of roughly 13 nearly indistinguishable "dog on grass, leash, tongue out"
-    photos and 8 near-identical "dog on the living-room rug" shots. The goal was not to keep only the
-    aesthetically "best" photos, but to preserve temporal and situational diversity — different years,
-    locations, weather, activities — rather than let the single most repetitive setting dominate the
-    embedding space and skew every query toward it.</p>
+    <p>This corpus is a personal photo archive of my dog, Alma, collected over roughly three years (2023–2026): Beach trips, snow days, city walks, hikes and a lot of ordinary photography around the apartment/house. So why did I use this corpus? Short answer: Because I want to show people pictures of my dog and also I had a shit ton of Alma pictures on my phone which were finally useful. Long answer: I chose this specific collection because I know it intimately enough to immediately notice when a retrieval system gets something wrong... which is the entire point of building a system like this rather than just trusting it.
+The archive started with 374 exported phone images (originally over 800). Since this exceeded the allowed range of 50–150 images, the dataset had to be carefully curated. First, I manually removed obvious redundancies, such as images containing humans or text, as well as repetitive shots, reducing the corpus to 178 images. In a second step, I reviewed the remaining images and removed another 48 photos, including near-identical burst shots and overrepresented scenes, such as multiple almost identical photos of Alma on grass with a leash or on the living-room rug.
+
+The main selection criterion was diversity rather than aesthetic quality. I intentionally kept images from different years, locations, weather conditions, and activities to prevent one repetitive setting from dominating the embedding space and influencing the retrieval results. The final corpus contained 130 images. 
+
+**However, I am very much aware that the corpus is still not very diverse since it's literally 130 pics of my dog Alma in different settings. Sorry.**.</p>
     <p>The final corpus is 130 images. Because the subject is a dog rather than a person, there are no
     third-party consent concerns for the primary subject. A small number of images with strangers visible
     in public-space backgrounds were deprioritised during curation.</p>
@@ -176,9 +167,7 @@
       <figure class="ok">
         <img src="assets/query01.png" alt="Query: a dog lying on the beach">
         <figcaption><strong class="tag">Success —</strong> <strong>"a dog lying on the beach"</strong><br>
-        Top-4 scores (0.131–0.107) sit well above the rest, with a visible drop after rank 5 (0.075 and
-        below). Every top hit is an unambiguous beach photo — the highest, cleanest confidence band of the
-        whole atlas.</figcaption>
+        This query worked very well. The top four results have relatively high similarity scores (0.131–0.107), followed by a clear drop after the fifth image (0.075 and below). The highest-ranked images are all actual beach scenes. Overall, this query achieved the highest similarity scores out of all ten queries. This suggests that concrete and clearly recognizable scenes are represented much more strongly in the embedding space than more abstract concepts.</figcaption>
       </figure>
 
       <figure class="ok">
