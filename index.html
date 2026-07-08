@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seeing Machines — Look At My Dog</title>
+<title>Seeing Machines — Good Girl</title>
 <style>
   :root {
     --max-width: 860px;
@@ -85,10 +85,10 @@
 <main>
 
   <header>
-    <h1>Look At My Dog</h1>
-    <p class="tagline">"Mirror, mirror on the wall: who is the best girl of them all?" — a semantic search engine over three years of photos of my dog, Alma.</p>
+    <h1>Good Girl</h1>
+    <p class="tagline">"Mirror, mirror on the wall: Who is the best girl of them all?" <br>A semantic search engine of photos of my dog Alma</p>
     <p class="meta">
-      <span>Lisa Below</span>&middot;
+      <span>by Lisa Below</span>&middot;
       <span>CompSci for Designers 2</span>&middot;
       <span>MA Design for Digital Futures, TH Nürnberg</span>&middot;
       <span>Summer Semester 2026</span>
@@ -104,7 +104,8 @@
   <section id="abstract">
     <h2>Abstract</h2>
     <div class="abstract">
-      <p>This project builds a semantic image search engine over a personal photo archive of my dog, Alma,
+      <p>Mirror, mirror on the wall: Who is the best girl of them all?
+      Welcome to my personal dog pic archive. My Google Colab notebook creates a pure retrieval system without captioning or text generation. Each image is embedded once using SigLIP’s image encoder while text queries are embedded with the text encoder into the same vector space. The images are then ranked by cosine similarity. The system only compares embeddings... there is no language model interpreting or describing the images.This project builds a semantic image search engine over a personal photo archive of my dog, Alma,
       using SigLIP (Sigmoid Loss for Language–Image Pre-training), a contrastive dual-encoder
       vision-language model. Every photo is embedded once into a shared image–text vector space. Then, a
       natural-language query is embedded into that same space, and cosine similarity alone determines
@@ -134,12 +135,12 @@
     aesthetically "best" photos, but to preserve temporal and situational diversity — different years,
     locations, weather, activities — rather than let the single most repetitive setting dominate the
     embedding space and skew every query toward it.</p>
-    <p>The final corpus is 124 images. Because the subject is a dog rather than a person, there are no
-    third-party consent concerns for the primary subject; a small number of images with strangers visible
+    <p>The final corpus is 130 images. Because the subject is a dog rather than a person, there are no
+    third-party consent concerns for the primary subject. A small number of images with strangers visible
     in public-space backgrounds were deprioritised during curation.</p>
     <ul>
-      <li><strong>Size:</strong> 124 images (from an original archive of 374)</li>
-      <li><strong>Source:</strong> my own photography of my dog Alma, 2023–2026</li>
+      <li><strong>Size:</strong> 130 images (from an original archive of >800)</li>
+      <li><strong>Source:</strong> My own photography of my dog Alma, 2023–2026</li>
       <li><strong>Curation:</strong> manual first pass, then systematic removal of export duplicates and
       redundant near-identical compositions, keeping temporal/situational spread over aesthetic
       "best-of" selection</li>
@@ -289,8 +290,6 @@
   <section id="references">
     <h2>Sources &amp; References</h2>
     <ul>
-      <li>Zhai, X. et al. "Sigmoid Loss for Language Image Pre-Training" (SigLIP), 2023.</li>
-      <li>Radford, A. et al. "Learning Transferable Visual Models From Natural Language Supervision" (CLIP), 2021.</li>
       <li>Course VLM lab notebook, CompSci for Designers 2 (SigLIP/Qwen3-VL comparison, Part 1 &amp; 2).</li>
       <li>Hugging Face model card: <code>google/siglip-base-patch16-224</code>.</li>
     </ul>
