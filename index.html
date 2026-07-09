@@ -155,7 +155,7 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
     vagueness, and out-of-vocabulary personal names. Scores are cosine similarities (roughly −1 to 1,
     though in practice this corpus stays within about −0.05 to 0.13).</p>
 
-    <p> 
+    <ul>
       <li><strong>1. An easy literal match:</strong>  A concrete object or scene your corpus clearly has.</li>
       <li><strong>2. A synonym or paraphrase of (1):</strong> Does the score hold up, or drop a lot?</li>
       <li><strong>3. An abstract / mood query:</strong> Embeddings often
@@ -172,7 +172,9 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
       <li><strong>9. Vague query:</strong> A deliberately ambiguous/vague query.</li>
       <li><strong>10. Unknown Vocabulary:</strong> A query built from vocabulary you don't expect SigLIP to know well
     (a personal name, an in-joke, a very specific technical term).</li>
-      </p>
+      </ul>
+
+    
     <div class="gallery">
 
       <figure class="ok">
