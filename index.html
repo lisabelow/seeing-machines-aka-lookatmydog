@@ -254,15 +254,15 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
         <figcaption><strong class="tag">Expected failure —</strong> <strong>"Alma"</strong> (out-of-vocabulary probe)<br>
         The model doesn't know my dog's name, so that's why I used it for this query. It achieved the lowest similarity scores among all positive-scoring queries (maximum 0.030)... only slightly above the noise level of the fireworks test. The retrieved images appear almost random including murals, portraits, a Christmas tree and mountain views without any clear connection. This confirms that Alma's name does not have a learned visual meaning for SigLIP. The model can recognize general concepts but it does not understand individual identities or specific names.</figcaption>
       </figure>
-<br>
-      <figure>
-  <img src="assets/a-blue-dog.png" alt="A blue dog-search result">
-  <figcaption>A short caption explaining this screenshot.</figcaption>
-</figure>
       <br>
     </div>
     <p class="note">One interesting observation is that the maximum similarity scores vary depending on the type of query. Concrete object-based queries reach much higher scores (around 0.09–0.13), while vague or mood-related queries only reach about 0.03–0.06. The query for a concept that is not present in the dataset even produces negative scores. This shows that using one fixed similarity threshold for all query types would not work equally well and should be adapted depending on the search task.
 </p>
+    <br>
+    <figure>
+  <img src="assets/a-blue-dog.png" alt="A blue dog-search result">
+  <figcaption>Search result for something absurd e.g. "a blue dog" returns blue elements in the pictures like Alma's eyes.</figcaption>
+</figure>
   </section>
 <br>
   <section id="reflection">
