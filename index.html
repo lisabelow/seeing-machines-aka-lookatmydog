@@ -149,10 +149,9 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
 
   <section id="results">
     <h2>Results: 10 different queries</h2>
-    <p>Ten queries, chosen to probe different aspects of the embedding space: literal matches, paraphrase
-    robustness, mood, colour, near-misses, absent concepts, spatial composition, retrieval breadth,
-    vagueness, and out-of-vocabulary personal names. Scores are cosine similarities (roughly −1 to 1,
-    though in practice this corpus stays within about −0.05 to 0.13).</p>
+    <p>I tested the retrieval system with ten different queries, each designed to explore a different aspect of the embedding space. The queries include direct object matches, paraphrases, mood-related terms, colors, similar but imperfect matches, concepts that are not present in the dataset, spatial relationships, broad and vague descriptions, as well as Alma's name as an out-of-vocabulary example. The similarity scores are based on cosine similarity, which theoretically ranges from −1 to 1. In this corpus, however, the scores only range from about −0.05 to 0.13.
+
+</p>
 
     <ul>
       <li><strong>1. An easy literal match:</strong>  A concrete object or scene your corpus clearly has.</li>
@@ -172,6 +171,7 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
       <li><strong>10. Unknown Vocabulary:</strong> A query built from vocabulary you don't expect SigLIP to know well
     (a personal name, an in-joke, a very specific technical term).</li>
       </ul>
+    <br>
 
     
     <div class="gallery">
@@ -238,37 +238,25 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
       </figure>
 
     </div>
-    <p class="note">Score ceilings vary a lot by query type: concrete object queries reach ~0.09–0.13,
-    vague/mood queries only ~0.03–0.06, and the absence probe goes negative. A single fixed similarity
-    threshold would never work equally well across query types.</p>
+    <p class="note">One interesting observation is that the maximum similarity scores vary depending on the type of query. Concrete object-based queries reach much higher scores (around 0.09–0.13), while vague or mood-related queries only reach about 0.03–0.06. The query for a concept that is not present in the dataset even produces negative scores. This shows that using one fixed similarity threshold for all query types would not work equally well and should be adapted depending on the search task.
+</p>
   </section>
 
   <section id="reflection">
     <h2>Project Reflection</h2>
-    <p><em>Running these ten queries against an
-    archive I know by heart was a strange experience: I could predict roughly how a person would answer
-    each question, which made SigLIP's actual answers unexpectedly diagnostic. The score magnitudes
-    surprised me most — I expected the model to be simply "right" or "wrong," but instead it produces a
-    wide range of confidence levels that only make sense relative to each other, never in absolute terms.
-    Watching the composition-swap queries return almost the same photos in almost the same order,
-    regardless of which noun came first, was the clearest demonstration all semester of what "bag of
-    concepts" actually means in practice, rather than as a lecture slide.</p>
+    <p><em>Running these ten queries on a photo archive that I know very well was a really interesting experience. Because I know the images so well, I already had an idea of what the correct results should look like, which made it much easier to spot where SigLIP performed well and where it struggled. What surprised me the most were the similarity scores. I expected the model to be either "right" or "wrong", but instead it produced different levels of confidence that only make sense when comparing them to each other, not as absolute values. The two composition queries were especially interesting because they returned almost the same images in nearly the same order, even though the wording was changed. This clearly showed that the model recognizes the same concepts but does not really understand their spatial relationship within the image.
+
+Overall, I expected that the results would be fairly similar since in the end it’s ultimately just 130 pictures of my dog (only!) just in slightly different settings. But I hope I reached my goal by showing you all her best sides.</p>
   </section>
 
   <section id="limitations">
     <h2>Limitations</h2>
     <ul>
-      <li><strong>Compositional / relational blindness:</strong> swapping the order of two nouns in a
-      query barely changes the results, confirming SigLIP encodes "what is present" far more reliably than
-      "how it's arranged."</li>
-      <li><strong>Loose attribute binding:</strong> colour queries return images containing the right
-      colour somewhere in frame, not necessarily attached to the intended object.</li>
-      <li><strong>No personal or proper-noun grounding:</strong> the model has no idea my dog is named
-      Alma, and never will without additional captioning or fine-tuning (see Level 2).</li>
-      <li><strong>Small-corpus effect:</strong> with only 124 images, rare one-off scenes can't be
-      statistically distinguished from noise the way a frequently repeated scene like "beach" can.</li>
-      <li><strong>No explanation or self-reported uncertainty:</strong> SigLIP can't say why it returned an
-      image, and has no signal for its own confidence beyond the raw similarity number.</li>
+      <li><strong>Compositional / relational blindness:</strong> Changing the order of two objects in a query hardly changes the results. This suggests that SigLIP is much better at recognizing which objects are present than understanding how they are arranged in the image.</li>
+      <li><strong>Weak attribute binding:</strong> Color-based queries often return images that contain the correct color somewhere in the scene, but not necessarily on the intended object.</li>
+      <li><strong>No personal or proper-noun grounding:</strong> The model does not know that my dog is called Alma. Without additional captioning or fine-tuning, proper names have no meaning for the retrieval system.</li>
+      <li><strong>Small dataset:</strong> Since the corpus contains only 130 images, unique scenes are difficult to distinguish from random matches. More common scenes, such as beach photos, are represented much more consistently.</li>
+      <li><strong>No explanation of results:</strong> SigLIP cannot explain why it retrieved a particular image. The similarity score is the only indication of how confident the model is in its results.</li>
     </ul>
   </section>
 
