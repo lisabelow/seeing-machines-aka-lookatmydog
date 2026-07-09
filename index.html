@@ -105,16 +105,10 @@
     <h2>Abstract</h2>
     <div class="abstract">
       <p>Mirror, mirror on the wall: Who is the best girl of them all?
-      Welcome to my personal dog pic archive. My Google Colab notebook creates a pure retrieval system without captioning or text generation. Each image is embedded once using SigLIP’s image encoder while text queries are embedded with the text encoder into the same vector space. The images are then ranked by cosine similarity. The system only compares embeddings... there is no language model interpreting or describing the images.This project builds a semantic image search engine over a personal photo archive of my dog, Alma,
-      using SigLIP (Sigmoid Loss for Language–Image Pre-training), a contrastive dual-encoder
-      vision-language model. Every photo is embedded once into a shared image–text vector space. Then, a
-      natural-language query is embedded into that same space, and cosine similarity alone determines
-      which photos come back. There is no captioning, no generation, no manual tagging anywhere in the
-      pipeline. Across 10 varied test queries, the system reliably retrieves literal,
-      concrete scenes but degrades sharply for abstract, personal, or purely aesthetic language, and its
-      confidence scores turn out to be far more informative when read <em>relative to each other</em> than
-      as any kind of absolute probability. The most interesting finding isn't that the system works — it's
-      <em>how differently</em> it fails depending on what kind of question you ask it.</p>
+Welcome to my personal photo archive of my dog, Alma. This project builds a semantic image search engine using a Google Colab notebook and SigLIP (a contrastive dual-encoder vision-language model).
+
+It is a pure retrieval system. Every photo is embedded just once into a shared vector space, and natural-language queries are embedded right into that exact same space. The images are then ranked entirely by cosine similarity. There is no manual tagging, no captioning, and no language model generating descriptions anywhere in the pipeline.
+Across 10 varied test queries, the system reliably retrieves literal, concrete scenes, but its performance degrades sharply for abstract, personal, or purely aesthetic language. Interestingly, its confidence scores are much more informative when read relative to each other rather than as absolute probabilities. In the end, the most fascinating finding isn't just that the system works… it's how differently it fails depending on what kind of question you ask.</p>
     </div>
   </section>
 
@@ -140,17 +134,13 @@ The main selection criterion was diversity rather than aesthetic quality. I inte
 
   <section id="approach">
     <h2>Approach</h2>
-    <p>SigLIP (<code>google/siglip-base-patch16-224</code>) is a contrastive, dual-encoder model: one
-    encoder for images, one for text, trained with a <strong>sigmoid</strong> loss so every image–caption
-    pair is scored independently rather than normalised across a batch (unlike CLIP's softmax loss). There
-    is no decoder and no language generation anywhere in this system — the model can only place an image
-    or a piece of text somewhere in a shared vector space and report distance between them. Every one of
-    the 124 corpus images is embedded once with the image encoder, L2-normalised, and cached to Google
-    Drive as a <code>.npy</code> file, so the notebook never has to recompute embeddings on a fresh
-    runtime. At query time, the text encoder embeds the search string into the same space, and cosine
-    similarity (a plain dot product between normalised vectors) ranks the entire corpus against it.
-    <code>top_k</code> and an optional similarity threshold are the only two retrieval parameters, both
-    exposed directly in the Gradio interface.</p>
+    <p>For the technical implementation, I decided to use SigLIP (google/siglip-base-patch16-224). It operates as a dual-encoder model, meaning there is one dedicated encoder for the images and another one for the text. The interesting part here is that it is trained with a sigmoid loss. This means it scores every single image-caption pair completely independently, rather than normalizing across an entire batch like the classic CLIP model does.
+It is important to note that there is no decoder or language generation involved in this system. The model does not generate text; it simply places an image or a text string as a coordinate into a shared vector space, and then calculates the spatial distance between them to see how well they relate.
+To optimize the workflow, all 130 corpus images are embedded through the image encoder just once. I L2-normalized them and cached them to my Google Drive as a .npy file. This is very practical, as the notebook never has to recompute the embeddings when starting a fresh runtime.
+At query time, the text encoder maps your search string into that exact same vector space. The system then uses cosine similarity—essentially a plain dot product between the normalized vectors to rank the entire image corpus against your search.
+There are only two retrieval parameters: top_k (the amount of results) and an optional similarity threshold. To make the experience more visual and interactive, I exposed both of these settings directly within the Gradio interface.</p>
+
+    
     <div class="pipeline-diagram">
       <img src="pipeline_diagram.svg" alt="Pipeline: corpus/query -> SigLIP encoder -> embeddings -> cosine similarity -> top-k -> Gradio">
     </div>
