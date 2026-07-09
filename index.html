@@ -45,16 +45,37 @@
   border-radius: 12px;
   display: block;
 }
-  .abstract {
+ .abstract {
     background: var(--card-bg); border-radius: 12px; padding: 24px 28px;
     font-size: 1.02rem;
   }
-  .gallery {
+.gallery {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-top: 16px;
-  }
+ }
+  .gallery img, .teaser img { cursor: zoom-in; }
+
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+  
+.lightbox.active { display: flex; }
+.lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
   figure { margin: 0; background: var(--card-bg); border-radius: 10px; overflow: hidden; }
   figure img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; background: #e2e5ea; }
   figcaption { padding: 10px 12px; font-size: 0.85rem; color: var(--muted); }
@@ -116,8 +137,7 @@ Across 10 varied test queries, the system reliably retrieves literal, concrete s
 
   <section id="motivation">
     <h2>Motivation &amp; Corpus Statement</h2>
-    <p>TThis corpus is a personal photo archive of my dog, Alma, spanning three years (2023–2026) and covering everything from beach trips and hikes to everyday life at home. I chose this collection partly to finally use the countless photos on my phone, but primarily because I know the dataset intimately. This familiarity allows me to immediately spot when the retrieval system makes an error, which is the whole point of testing it rather than just trusting the output.
-
+    <p>This corpus is a personal photo archive of my dog, Alma, spanning three years (2023–2026) and covering everything from beach trips and hikes to everyday life at home. So why did I use this corpus? Short answer: Because I want to show people pictures of my dog and also I had a shit ton of Alma pictures on my phone which were finally useful. Long answer: I chose this specific collection because I know it intimately enough to immediately notice when a retrieval system gets something wrong... which is the entire point of building a system like this rather than just trusting it.
 Since the initial 374 exported images exceeded the allowed range of 50–150, the dataset required careful curation. First, I removed obvious redundancies such as images containing humans or text, reducing the count to 178. I then filtered out another 48 photos by cutting near-identical burst shots and overrepresented scenes.
 
 My main selection criteria was diversity over aesthetic quality. I intentionally kept a mix of different years, locations, and weather conditions to prevent any single repetitive setting from dominating the embedding space. The final corpus contains 130 images. I am, of course, aware that true diversity is still limited here, since it is ultimately just 130 pictures of my dog.</p>
@@ -273,5 +293,30 @@ Overall, I expected that the results would be fairly similar since in the end it
   </footer>
 
 </main>
+  <div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+  
+  <script>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.gallery img, .teaser img').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('active');
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox.classList.remove('active');
+  });
+</script>
+  
 </body>
 </html>
