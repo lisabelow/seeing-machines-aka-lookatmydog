@@ -153,22 +153,23 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
     vagueness, and out-of-vocabulary personal names. Scores are cosine similarities (roughly −1 to 1,
     though in practice this corpus stays within about −0.05 to 0.13).</p>
 
-    <p> 1. An easy literal match (a concrete object/scene your corpus clearly has). <br>
-2. A synonym or paraphrase of (1) — does the score hold up, or drop a lot? <br>
-3. An abstract / mood query ("a calm moment", "chaos") — embeddings often
-   capture *some* mood signal, but weakly. <br>
-4. A colour-based query. <br>
-5. A near-miss concept that is visually similar but wrong (e.g. query for
-   something adjacent to what's actually in an image). <br>
-6. An absent concept — something definitely **not** in your corpus. Does the
-   similarity correctly stay low, or does it confidently return nonsense? <br>
-7. A composition/spatial query ("X on the left of Y") — per the lab notebook,
+    <p> 
+      <li><strong>1. An easy literal match:</strong>  A concrete object or scene your corpus clearly has.</li>
+      <li><strong>2. A synonym or paraphrase of (1):</strong> Does the score hold up, or drop a lot?</li>
+      <li><strong>3. An abstract / mood query:</strong> Embeddings often
+   capture some mood signal, but weakly.</li>
+      <li><strong>4. A colour-based query </strong></li>
+      <li><strong>5. A near-miss concept</strong> that is visually similar but wrong (e.g. query for
+   something adjacent to what's actually in an image).</li>
+      <li><strong>6. An absent concept:</strong> Something definitely not in your corpus. Does the
+   similarity correctly stay low, or does it confidently return nonsense?</li>
+      <li><strong>7. A composition/spatial query:</strong> ("X on the left of Y") Per the lab notebook,
    expect the bag-of-concepts weakness: swapped word order often scores
-   almost identically. <br>
-8. A query that should return many good matches (test `top_k`). <br>
-9. A deliberately ambiguous/vague query. <br>
-10. A query built from vocabulary you don't expect SigLIP to know well
-    (a personal name, an in-joke, a very specific technical term).<br>
+   almost identically.</li>
+      <li><strong>8. top_k breadth query:</strong> A query that should return many good matches (test `top_k`).</li>
+      <li><strong>9. Vague query:</strong> A deliberately ambiguous/vague query.</li>
+      <li><strong>10. Unknown Vocabulary:</strong> A query built from vocabulary you don't expect SigLIP to know well
+    (a personal name, an in-joke, a very specific technical term).</li>
       </p>
     <div class="gallery">
 
