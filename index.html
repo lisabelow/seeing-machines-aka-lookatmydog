@@ -50,8 +50,10 @@
     font-size: 1.02rem;
   }
   .gallery {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px; margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 16px;
   }
   figure { margin: 0; background: var(--card-bg); border-radius: 10px; overflow: hidden; }
   figure img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; background: #e2e5ea; }
