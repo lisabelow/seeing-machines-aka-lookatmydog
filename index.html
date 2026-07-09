@@ -134,7 +134,7 @@ It is a pure retrieval system. Every photo is embedded just once into a shared v
 Across 10 varied test queries, the system reliably retrieves literal, concrete scenes, but its performance degrades sharply for abstract, personal, or purely aesthetic language. Interestingly, its confidence scores are much more informative when read relative to each other rather than as absolute probabilities. In the end, the most fascinating finding isn't just that the system works… it's how differently it fails depending on what kind of question you ask.</p>
     </div>
   </section>
-
+<br>
   <section id="motivation">
     <h2>Motivation &amp; Corpus Statement</h2>
     <p>This corpus is a personal photo archive of my dog, Alma, spanning three years (2023–2026) and covering everything from beach trips and hikes to everyday life at home. So why did I use this corpus? Short answer: Because I want to show people pictures of my dog and also I had a shit ton of Alma pictures on my phone which were finally useful. Long answer: I chose this specific collection because I know it intimately enough to immediately notice when a retrieval system gets something wrong... which is the entire point of building a system like this rather than just trusting it.
@@ -150,7 +150,7 @@ My main selection criteria was diversity over aesthetic quality. I intentionally
       <li><strong>Curation:</strong> The dataset was first curated manually, followed by a more systematic removal of duplicate exports and near-identical images. The focus was on keeping a diverse collection across different times, locations, and situations rather than selecting only the most aesthetically pleasing photos.</li>
     </ul>
   </section>
-
+<br>
   <section id="approach">
     <h2>Approach</h2>
     <p>For the technical implementation, I decided to use SigLIP (google/siglip-base-patch16-224). It operates as a dual-encoder model, meaning there is one dedicated encoder for the images and another one for the text. The interesting part here is that it is trained with a sigmoid loss. This means it scores every single image-caption pair completely independently, rather than normalizing across an entire batch like the classic CLIP model does.
@@ -158,13 +158,13 @@ It is important to note that there is no decoder or language generation involved
 To optimize the workflow, all 130 corpus images are embedded through the image encoder just once. I L2-normalized them and cached them to my Google Drive as a .npy file. This is very practical, as the notebook never has to recompute the embeddings when starting a fresh runtime.
 At query time, the text encoder maps your search string into that exact same vector space. The system then uses cosine similarity—essentially a plain dot product between the normalized vectors to rank the entire image corpus against your search.
 There are only two retrieval parameters: top_k (the amount of results) and an optional similarity threshold. To make the experience more visual and interactive, I exposed both of these settings directly within the Gradio interface.</p>
-
+<br>
     
     <div class="pipeline-diagram">
       <img src="pipeline_diagram.svg" alt="Pipeline: corpus/query -> SigLIP encoder -> embeddings -> cosine similarity -> top-k -> Gradio">
     </div>
   </section>
-
+<br>
   <section id="results">
     <h2>Results: 10 different queries</h2>
     <p>I tested the retrieval system with ten different queries, each designed to explore a different aspect of the embedding space. The queries include direct object matches, paraphrases, mood-related terms, colors, similar but imperfect matches, concepts that are not present in the dataset, spatial relationships, broad and vague descriptions, as well as Alma's name as an out-of-vocabulary example. The similarity scores are based on cosine similarity, which theoretically ranges from −1 to 1. In this corpus, however, the scores only range from about −0.05 to 0.13.
@@ -199,13 +199,13 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
         <figcaption><strong class="tag">Success —</strong> <strong>"a dog lying on the beach"</strong><br>
         This query worked very well. The top four results have relatively high similarity scores (0.131–0.107), followed by a clear drop after the fifth image (0.075 and below). The highest-ranked images are all actual beach scenes. Overall, this query achieved the highest similarity scores out of all ten queries. This suggests that concrete and clearly recognizable scenes are represented much more strongly in the embedding space than more abstract concepts.</figcaption>
       </figure>
-
+<br>
       <figure class="ok">
         <img src="assets/query02.png" alt="Query: a dog resting on the sand near the ocean">
         <figcaption><strong class="tag">Success —</strong> <strong>"a dog resting on the sand near the ocean"</strong> (paraphrase of #1)<br>
         The similarity scores are almost identical (0.129–0.087 vs. 0.131–0.107), and the same four images appear at the top, only in a slightly different order. This shows that the results are more stable than expected. It seems that SigLIP has a consistent representation of "beach" in the embedding space, so changing the wording from "beach" to "sand and ocean" has very little effect on the retrieved images..</figcaption>
       </figure>
-
+<br>
       <figure class="fail">
         <img src="assets/query03.png" alt="Query: a calm, peaceful moment">
         <figcaption><strong class="tag">Failure —</strong> <strong>"a calm, peaceful moment"</strong><br>
@@ -217,56 +217,56 @@ There are only two retrieval parameters: top_k (the amount of results) and an op
         <figcaption><strong class="tag">Partial failure —</strong> <strong>"a dog on an orange leash"</strong><br>
         The top results often contain something orange, but they are not consistently showing an actual leash. For example, the first result shows an orange mural, the fourth an orange toy headband, and the sixth an orange chew toy. This suggests that the model mainly focuses on the visual concept of “orange” rather than understanding the relationship between the color and the specific object. It shows the limitation of the bag-of-concepts approach, where attributes and objects are not always connected correctly.</figcaption>
       </figure>
-
+<br>
       <figure class="fail">
         <img src="assets/query05.png" alt="Query: a wolf in the snow">
         <figcaption><strong class="tag">Near-miss —</strong> <strong>"a wolf in the snow"</strong><br>
         The top three results are actually the correct snow photos, but the highest similarity score is only 0.078, which is much lower compared to the beach query (0.131). The model is able to find the right images, but with less confidence. This shows that even when the overall visual context (snow, similar clothing patterns) matches, the model seems to struggle more when the searched object or concept does not perfectly fit the image content.</figcaption>
       </figure>
-
+<br>
       <figure class="ok">
         <img src="assets/query06.png" alt="Query: fireworks at night">
         <figcaption><strong class="tag">Success —</strong> <strong>"fireworks at night"</strong> (absent-concept probe)<br>
         All 12 similarity scores are negative (−0.003 to −0.041) making this the only query with consistently negative values. This is actually one of the clearest results of all the queries. Instead of forcing a match and returning unrelated fireworks images, the model correctly shows that there is no strong connection between the query and the available images. This is not a failure or hallucination but rather the expected behaviour.</figcaption>
       </figure>
-
+<br>
       <figure class="fail">
         <img src="assets/query07.png" alt="Query: a dog on the left and a tree on the right">
         <figcaption><strong class="tag">Failure —</strong> <strong>"a dog on the left / tree on the right"</strong> vs. reversed<br>
         The highest similarity scores are slightly different (0.092 vs. 0.077) and the top-ranked images change a little. However, both results come from the same general image group, showing paths, trees and Alma near trees. The differences seem to come more from small wording variations rather than actual spatial understanding. The model recognizes that “dog” and “tree” often appear together but it does'nt really understand their exact position or relationship in the image..</figcaption>
       </figure>
-
+<br>
       <figure class="ok">
         <img src="assets/query08.png" alt="Query: a dog outdoors">
         <figcaption><strong class="tag">As expected —</strong> <strong>"a dog outdoors"</strong> (top_k breadth test)<br>
        The similarity curve is extremely flat with only a small difference between the 1st and 12th result (0.096 to 0.089). This suggests that the broad query matches a large group of similar images without a clear best result. Within this pool, the ranking appears almost random because the model cannot strongly distinguish between the individual images.
 </figcaption>
       </figure>
-
+<br>
       <figure class="fail">
         <img src="assets/query09.png" alt="Query: something pretty">
         <figcaption><strong class="tag">Failure —</strong> <strong>"something pretty"</strong><br>
         Similar to query 3, this result shows a very flat and low similarity range (max is 0.042). The retrieved images are a mixed collection of unrelated content including flowers, plants, a bow collar, a pizza box, the beach etc. without a clear visual connection. This suggests that aesthetic judgments without a concrete visual object are difficult for the model to find as they do not create a strong or specific target in the embedding space.</figcaption>
       </figure>
-
+<br>
       <figure class="fail">
         <img src="assets/query10.png" alt="Query: Alma">
         <figcaption><strong class="tag">Expected failure —</strong> <strong>"Alma"</strong> (out-of-vocabulary probe)<br>
         The model doesn't know my dog's name, so that's why I used it for this query. It achieved the lowest similarity scores among all positive-scoring queries (maximum 0.030)... only slightly above the noise level of the fireworks test. The retrieved images appear almost random including murals, portraits, a Christmas tree and mountain views without any clear connection. This confirms that Alma's name does not have a learned visual meaning for SigLIP. The model can recognize general concepts but it does not understand individual identities or specific names.</figcaption>
       </figure>
-
+<br>
     </div>
     <p class="note">One interesting observation is that the maximum similarity scores vary depending on the type of query. Concrete object-based queries reach much higher scores (around 0.09–0.13), while vague or mood-related queries only reach about 0.03–0.06. The query for a concept that is not present in the dataset even produces negative scores. This shows that using one fixed similarity threshold for all query types would not work equally well and should be adapted depending on the search task.
 </p>
   </section>
-
+<br>
   <section id="reflection">
     <h2>Project Reflection</h2>
     <p>Running these ten queries on a photo archive that I know very well was a really interesting experience. Because I know the images so well, I already had an idea of what the correct results should look like, which made it much easier to spot where SigLIP performed well and where it struggled. What surprised me the most were the similarity scores. I expected the model to be either "right" or "wrong", but instead it produced different levels of confidence that only make sense when comparing them to each other, not as absolute values. The two composition queries were especially interesting because they returned almost the same images in nearly the same order, even though the wording was changed. This clearly showed that the model recognizes the same concepts but does not really understand their spatial relationship within the image.
 
 Overall, I expected that the results would be fairly similar since in the end it’s ultimately just 130 pictures of my dog (only!) just in slightly different settings. But I hope I reached my goal by showing you all her best sides.</p>
   </section>
-
+<br>
   <section id="limitations">
     <h2>Limitations</h2>
     <ul>
@@ -277,7 +277,7 @@ Overall, I expected that the results would be fairly similar since in the end it
       <li><strong>No explanation of results:</strong> SigLIP cannot explain why it retrieved a particular image. The similarity score is the only indication of how confident the model is in its results.</li>
     </ul>
   </section>
-
+<br>
   <section id="links">
   <h2>Project Links</h2>
   <p>Everything needed to run and verify this project, shared with view access.</p>
@@ -299,7 +299,7 @@ Overall, I expected that the results would be fairly similar since in the end it
     </li>
   </ul>
 </section>
-
+<br>
   <section id="references">
     <h2>Sources &amp; References</h2>
     <ul>
@@ -307,7 +307,7 @@ Overall, I expected that the results would be fairly similar since in the end it
       <li>Hugging Face model card: <code>google/siglip-base-patch16-224</code>.</li>
     </ul>
   </section>
-  
+<br>
   <section id="disclaimer">
     <h2>AI Use Disclaimer</h2>
     <p>Parts of the Google Colab notebook were developed with the assistance of Anthropic's Claude. Claude was used to support the coding process, including writing, explaining, and debugging Python code. The overall project, dataset curation, testing, analysis, and interpretation of the results were completed by me.</p>
