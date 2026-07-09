@@ -34,17 +34,17 @@
     font-weight: 600;
   }
   .teaser {
-    width: 100%; border-radius: 12px; margin: 30px 0;
-    background: var(--card-bg); aspect-ratio: 16/9; display: flex;
-    align-items: center; justify-content: center; color: var(--muted);
-    font-size: 0.9rem; overflow: hidden;
-  }
-  .teaser img { width: 100%; height: 100%; object-fit: cover; }
-  section { margin: 48px 0; }
-  h2 {
-    font-size: 1.3rem; border-bottom: 2px solid var(--card-bg);
-    padding-bottom: 8px; margin-bottom: 16px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 30px 0;
+}
+.teaser img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  display: block;
+}
   .abstract {
     background: var(--card-bg); border-radius: 12px; padding: 24px 28px;
     font-size: 1.02rem;
